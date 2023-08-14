@@ -1,0 +1,3 @@
+displayName = Gem Swords
+author = Fenrir
+version = 1.3.2

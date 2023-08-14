@@ -1,0 +1,89 @@
+Mods: {
+	GemSwords: {
+		Items: {
+			AmethystBlade: {
+				DisplayName: Amethyst Blade
+				Tooltip: Shoots sparks of fire
+			}
+
+			AmethystJewel: {
+				DisplayName: Amethyst Jewel
+				Tooltip: A jewel imbued with dark and light souls. Can be used to improve a blade
+			}
+
+			CBGSword: {
+				DisplayName: Holy Gem Sword
+				Tooltip:
+					'''
+					Holding this weapon makes you glow and gives you protection
+					Shoots gem bolts
+					'''
+			}
+
+			DiamondSword: {
+				DisplayName: Diamond Greatsword
+				Tooltip:
+					'''
+					Hitting enemies stores shards in the sword that increase it's damage (Up to 3).
+					Right clicking releases stored shards into projectiles
+					Holding this sword makes you glow
+					'''
+			}
+
+			EmeraldSword: {
+				DisplayName: Emerald Longsword
+				Tooltip:
+					'''
+					Imbued with the Dryad's powers
+					Hitting enemies marks them. Right click to make the enemy burst into thorns
+					'''
+			}
+
+			GDBlade: {
+				DisplayName: Greater Diamond Blade
+				Tooltip: Shoots Diamond sword beams
+			}
+
+			GreaterAmethystBlade: {
+				DisplayName: Greater Amethyst Blade
+				Tooltip: Shoots sparks of fire
+			}
+
+			RubySword: {
+				DisplayName: Ruby Greatsword
+				Tooltip:
+					'''
+					Hits charge the sword (up to 2 charges)
+					Right click to release a charge giving you rapid regeneration for a short while and releasing a ruby slash
+					'''
+			}
+
+			SapphireSword: {
+				DisplayName: Sapphire Longsword
+				Tooltip:
+					'''
+					Inflicts frostburn on hit
+					Hitting an enemy 3 times drops an icicle on top of them
+					'''
+			}
+
+			TopazBlade: {
+				DisplayName: Topaz Blade
+				Tooltip: Hits release a poison cloud that damages entities inside
+			}
+		}
+
+		Projectiles: {
+			DiamondSwordProj.DisplayName: Diamond Sword Proj
+			Tracker.DisplayName: Tracker
+			GreaterAmethystBladeProj.DisplayName: Greater Amethyst Blade Proj
+			RubySwordProj.DisplayName: Ruby Sword Proj
+			DiaShards.DisplayName: Diamond Shard
+			DMDProj.DisplayName: D M D Proj
+			FireBall.DisplayName: Fire Ball
+			FireSpark.DisplayName: Fire Spark
+			RubyWave.DisplayName: Ruby Wave
+			SapphireProj.DisplayName: Sapphire Proj
+		}
+	}
+}
