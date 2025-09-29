@@ -9,13 +9,7 @@ namespace GemSwords.Items
 {
 	public class AmethystBlade : ModItem
 	{
-		public int I;
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Amethyst Blade");
-			// Tooltip.SetDefault("Shoots sparks of fire");
-		}
-
+		private int swingCount;
 		public override void SetDefaults()
 		{
 			Item.damage = 15;
@@ -52,12 +46,12 @@ namespace GemSwords.Items
 		}
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-			I++;
-            if (I >= 2)
+			swingCount++;
+            if (swingCount >= 2)
             {
 				Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
 				SoundEngine.PlaySound(SoundID.Item20, player.position);
-				I=0;
+				swingCount=0;
 			}
 			return false;
         }

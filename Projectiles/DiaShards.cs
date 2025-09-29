@@ -39,8 +39,8 @@ namespace GemSwords.Projectiles
             {
 				Projectile.velocity = new Vector2(0,0);
             }
-				float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
-			float projSpeed = 10f; // The speed at which the projectile moves towards the target
+				float maxDetectRadius = 800f; // The maximum radius at which a projectile can detect a target
+			float projSpeed = 20f; // The speed at which the projectile moves towards the target
 
 			// Trying to find NPC closest to the projectile
 			NPC closestNPC = FindClosestNPC(maxDetectRadius);
@@ -49,17 +49,14 @@ namespace GemSwords.Projectiles
 			
 			// If found, change the velocity of the projectile and turn it in the direction of the target
 			// Use the SafeNormalize extension method to avoid NaNs returned by Vector2.Normalize when the vector is zero
-			if (Projectile.frameCounter >= 40 && Projectile.frameCounter <=50 )
+			if (Projectile.frameCounter >= 30 && Projectile.frameCounter <=50 )
 			{
 				Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * projSpeed;
 			}
 		}
         public override void PostAI()
         {
-            if (Projectile.frameCounter >= 60 )
-            {
 				Projectile.tileCollide = true;
-            }
         }
 
         // Finding the closest NPC to attack within maxDetectDistance range
@@ -102,7 +99,7 @@ namespace GemSwords.Projectiles
         {
             Projectile.frame = Main.rand.Next(3);
         }
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 			Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.GemDiamond, 0f, 0f, 50, default(Color), 1.2f);

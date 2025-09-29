@@ -1,43 +1,28 @@
 Adds swords inspired by the gem staves. They also have unique attacks (ex. Sapphire Longsword - Hitting an enemy 3 times makes an icicle drop on them). Try them out!
 
-Currently adds 7 new swords:
--Diamond Greatsword
--Ruby Greatsword
--Emerald Longsword
--Sapphire Longsword
--Topaz Blade
--Amethyst Blade
+Currently adds 8 new swords:
+Pre-Hardmode:
+- Diamond Greatsword
+- Ruby Greatsword
+- Emerald Longsword
+- Sapphire Longsword
+- Topaz Blade
+- Amethyst Blade
+Hardmode:
+- Greater Amethyst Blade
 Planned features:
--Hardmode variants of the swords
+- More hardmode sword variants
+- Amber Sword
 
-[1.1 Update]
--Updated Diamond Greatsword sprite
--Updated Emerald Longsword sprite
--Updated Sapphire Longsword sprite
--Slightly updated Ruby Greatsword and Amethyst Blade sprites
--Changed Ruby Greatsword ability
--Added new NPC Gem Beast
-[1.2 Update]
--Updated to new tModLoader version
--Added Greater Diamond Blade (Made in Hardmode)
--New Ruby Greatsword sprite
--Made Holy Gem Sword uncraftable
--Removed Gem Beast
-[1.3 Update]
--Reworked all Pre-Hardmode swords:
--Rebalanced all sword damage
--Removed Lifesteal from Amethyst Blade
--Removed Thorns buff from Topaz Blade
--Removed Spelunker buff from Ruby Greatsword
--Added unique attacks to all pre-hardmode swords
--Slightly changed recipes of all pre-hardmode swords
-[1.3.1 Update]
--Slightly updated Emerald Longsword's sprite
--Improved Emerald Longsword's ability
-*-Hitting an enemy marks them. Right click to make the marked enemy burst into thorns
--Improved the aim of Sapphire Longsword's icicle
--Made it so you can use Tissue Samples to craft Diamond Greatsword
--Removed Greater Diamond Blade (Going to be added back in a different update)
+[1.3.3 Update]
+- Diamond Sword and Ruby Sword state now sync properly in multiplayer
+- Increased Diamond Shard projectile speed
+- Added first hardmode weapon: 
+	Greater Amethyst Blade - made in early hardmode pre boss
+	Has a fiery mode which makes it deal increased damage, swing faster and increases it's size
+- Fixed a bug where Emerald Sword tracker would target the wrong entity
+- Updated all tooltips
+- Fixed most multiplayer issues
 [1.3.2 Update]
 -Fixed a bug with Emerald Longsword not being able to apply a tracker again after one expires
 -Emerald Longsword's secondary ability now activates automatically if the tracker expires
@@ -52,5 +37,18 @@ Planned features:
 -Slightly updated Ruby sword's max charge sprite
 -Ruby Sword now gains 5 damage per charge
 -Increased Amethyst Blade's size by 10%
-
-///WARNING SOME THINGS MAY NOT WORK AS EXPECTED IN MULTIPLAYER\\\
+[1.3.1 Update]
+-Slightly updated Emerald Longsword's sprite
+-Improved Emerald Longsword's ability
+*-Hitting an enemy marks them. Right click to make the marked enemy burst into thorns
+-Improved the aim of Sapphire Longsword's icicle
+-Made it so you can use Tissue Samples to craft Diamond Greatsword
+-Removed Greater Diamond Blade (Going to be added back in a different update)
+[1.3 Update]
+-Reworked all Pre-Hardmode swords:
+-Rebalanced all sword damage
+-Removed Lifesteal from Amethyst Blade
+-Removed Thorns buff from Topaz Blade
+-Removed Spelunker buff from Ruby Greatsword
+-Added unique attacks to all pre-hardmode swords
+-Slightly changed recipes of all pre-hardmode swords

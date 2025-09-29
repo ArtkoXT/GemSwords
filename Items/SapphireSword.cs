@@ -8,13 +8,7 @@ namespace GemSwords.Items
 {
 	public class SapphireSword : ModItem
 	{
-		public int I;
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Sapphire Longsword");
-			// Tooltip.SetDefault("Inflicts frostburn on hit\nHitting an enemy 3 times drops an icicle on top of them");
-		}
-
+		private int hitCount;
 		public override void SetDefaults()
 		{
 			Item.damage = 24;
@@ -44,12 +38,12 @@ namespace GemSwords.Items
 		}
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			I++;
-			if (I >= 3)
+			hitCount++;
+			if (hitCount >= 3)
             {
 				Projectile.NewProjectile(player.GetSource_FromThis(), target.Center.X, target.Center.Y-200, target.velocity.X/2, 10f, ModContent.ProjectileType<Projectiles.SapphireProj>(), 40, 1f, player.whoAmI);
 				SoundEngine.PlaySound(SoundID.Item101, new Vector2 (target.Center.X, target.Center.Y-200));
-				I = 0;
+				hitCount = 0;
 			}
 			target.AddBuff(BuffID.Frostburn, 60);
 		}

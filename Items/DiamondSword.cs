@@ -11,13 +11,7 @@ namespace GemSwords.Items
 {
 	public class DiamondSword : ModItem
 	{
-		public static int I;
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Diamond Greatsword");
-			// Tooltip.SetDefault("Hitting enemies stores shards in the sword that increase it's damage (Up to 3).\nRight clicking releases stored shards into projectiles\nHolding this sword makes you glow");
-		}
-
+		private int hitCount;
 		public override void SetDefaults()
 		{
 			Item.damage = 36;
@@ -54,54 +48,38 @@ namespace GemSwords.Items
 		}
 		public override bool AltFunctionUse(Player player)
 		{
-			if (I <= 0) { return false; }
-			else { return true; }
+			if (hitCount <= 0) 
+				return false;
+
+			return true;
 		}
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			I++;
-			if (I >= 1 && I <= 2) 
-			{
+			hitCount++;
+			if (hitCount <= 2)
 				SoundEngine.PlaySound(SoundID.MaxMana, player.position);
-			}
-			if (I == 3)
+
+			if (hitCount == 3)
                 SoundEngine.PlaySound(SoundID.Item79, player.position);
-            if (I >= 3) 
-			{
-                I = 3; 
-			}
+
+			if (hitCount >= 3)
+				hitCount = 3;
+
 		}
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-			Projectile.NewProjectile(source, position, new Vector2(0, 0), ModContent.ProjectileType<DiamondSwordProj>(), 0, knockback, player.whoAmI);
-			if (player.altFunctionUse == 2 && I == 3)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			Projectile.NewProjectile(source, position, new Vector2(0, 0), ModContent.ProjectileType<DiamondSwordProj>(), 0, knockback, player.whoAmI, 0f, hitCount);
+            if (player.altFunctionUse == 2 && hitCount >= 1)
 			{
 				Item.noMelee = true;
-				SoundEngine.PlaySound(SoundID.Item28, player.position);
-				Projectile.NewProjectile(source, position, new Vector2(player.direction * 7f, 0), ModContent.ProjectileType<DiamondSwordProj>(), 0, knockback, player.whoAmI);
-				Projectile.NewProjectile(source, position, new Vector2(player.direction * 4f, -7f), type, damage, knockback, player.whoAmI);
-				Projectile.NewProjectile(source, position, new Vector2(player.direction * 5f, -8f), type, damage, knockback, player.whoAmI);
-				Projectile.NewProjectile(source, position, new Vector2(player.direction * 3f, -6f), type, damage, knockback, player.whoAmI);
-				I = 0;
-			}
-			else if (player.altFunctionUse == 2 && I == 2)
-            {
-				Item.noMelee = true;
-				SoundEngine.PlaySound(SoundID.Item28, player.position);
-				Projectile.NewProjectile(source, position, new Vector2(player.direction * 7f, 0), ModContent.ProjectileType<DiamondSwordProj>(), 0, knockback, player.whoAmI);
-				Projectile.NewProjectile(source, position, new Vector2(player.direction * 4f, -7f), type, damage, knockback, player.whoAmI);
-				Projectile.NewProjectile(source, position, new Vector2(player.direction * 5f, -8f), type, damage, knockback, player.whoAmI);
-				I = 0;
-			}
-			else if (player.altFunctionUse == 2 && I == 1)
-			{
-				Item.noMelee = true;
-				SoundEngine.PlaySound(SoundID.Item28, player.position);
-				Projectile.NewProjectile(source, position, new Vector2(player.direction * 7f, 0), ModContent.ProjectileType<DiamondSwordProj>(), 0, knockback, player.whoAmI);
-				Projectile.NewProjectile(source, position, new Vector2(player.direction * 4f, -7f), type, damage, knockback, player.whoAmI);
-				I = 0;
-			}
-			else { Item.noMelee = false; }
+                Projectile.NewProjectile(source, position, new Vector2(player.direction * 7f, 0), ModContent.ProjectileType<DiamondSwordProj>(), 0, knockback, player.whoAmI, 0f, hitCount);
+                SoundEngine.PlaySound(SoundID.Item28, player.position);
+                for (; hitCount > 0; hitCount--)
+				{
+                    Projectile.NewProjectile(source, position, new Vector2(player.direction * 4f+hitCount, -7f+hitCount), type, damage, knockback, player.whoAmI);
+                }
+            }
+			else Item.noMelee = false;
 			return false;
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -115,12 +93,13 @@ namespace GemSwords.Items
         public override void HoldItem(Player player)
 		{
 			player.AddBuff(BuffID.Shine, 2);
-			Item.damage = 36 + I * 2;
+			Item.damage = 36 + hitCount * 2;
 		}
 		public class DiamondSwordProj : ModProjectile
 		{
-			public int Timer;
-			public override void SetStaticDefaults()
+			private int Timer;
+
+            public override void SetStaticDefaults()
 			{
 				Main.projFrames[Projectile.type] = 4;
 			}
@@ -141,11 +120,12 @@ namespace GemSwords.Items
 			public float RotateValue { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
 			public override void AI()
 			{
-				Player player = Main.player[Projectile.owner];
+				int hitCount = (int)Projectile.ai[1];
+                Player player = Main.player[Projectile.owner];
 				player.heldProj = Projectile.whoAmI;
 				if (++Timer >= 25 / player.GetAttackSpeed(DamageClass.Melee))
 					Projectile.Kill();
-				Projectile.frame = I;
+				Projectile.frame = hitCount;
 				float rotSpeed = 0.18f * player.GetAttackSpeed(DamageClass.Melee);
 				int rotMax = 40;
 

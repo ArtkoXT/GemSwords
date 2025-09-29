@@ -32,12 +32,8 @@ namespace GemSwords.Projectiles
         }
         public override void AI()
         {
-            if (++Projectile.frameCounter >= 3)
-            {
-                Projectile.frameCounter = 0;
-                if (++Projectile.frame >= Main.projFrames[Projectile.type])
-                    Projectile.frame = 7;
-            }
+
+            Projectile.frame = 7;
             Projectile.alpha += 4;
             if (Projectile.alpha >= 255)
                 Projectile.Kill();

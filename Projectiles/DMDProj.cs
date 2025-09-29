@@ -49,7 +49,7 @@ namespace GemSwords.Projectiles
         {
             SoundEngine.PlaySound(SoundID.Item48, Projectile.position);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
             Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.GemDiamond, 0f, 0f, 50, default(Color), 1.2f);

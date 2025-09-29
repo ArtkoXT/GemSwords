@@ -11,7 +11,7 @@ namespace GemSwords.Items
 {
 	public class RubySword : ModItem
 	{
-		public int I;
+		private int hitCount;
 		public override void SetDefaults()
 		{
 			Item.damage = 30;
@@ -36,7 +36,7 @@ namespace GemSwords.Items
 		}
         public override bool AltFunctionUse(Player player)
         {
-			if( I <= 0) { return false; }
+			if( hitCount <= 0) { return false; }
 			else { return true; }
         }
         public override void AddRecipes()
@@ -51,12 +51,12 @@ namespace GemSwords.Items
 		}
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			I++;
-			if( I == 1 || I == 2)
-            {
+			hitCount++;
+			if( hitCount == 1 || hitCount == 2)
 				SoundEngine.PlaySound(SoundID.Item79, player.position);
-			}
-			if ( I >= 2) { I = 2; }
+
+			if ( hitCount >= 2) 
+				hitCount = 2;
 		}
         public override bool CanUseItem(Player player)
         {
@@ -64,7 +64,7 @@ namespace GemSwords.Items
             {
 				Item.noMelee = true;
 				Item.UseSound = SoundID.Item71;
-				if (I >= 1)
+				if (hitCount >= 1)
                 {
 					player.AddBuff(BuffID.RapidHealing, 60);
                 }
@@ -78,19 +78,19 @@ namespace GemSwords.Items
         }
         public override void HoldItem(Player player)
         {
-            Item.damage = 30 + I * 5;
+            Item.damage = 30 + hitCount * 5;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 			int dmg = (int)(damage * 1.6f);
-			Projectile.NewProjectile(source, position, new Vector2(player.direction * 7f, 0), ModContent.ProjectileType<RubySwordProj>(), 0, knockback, player.whoAmI);
+			Projectile.NewProjectile(source, position, new Vector2(player.direction * 7f, 0), ModContent.ProjectileType<RubySwordProj>(), 0, knockback, player.whoAmI, 0f, hitCount);
 			if (player.altFunctionUse == 2)
 			{
-				if (I >= 1)
+				if (hitCount >= 1)
 				{
-					Projectile.NewProjectile(source, position, new Vector2(player.direction * 7f, 0), ModContent.ProjectileType<RubySwordProj>(), 0, knockback, player.whoAmI);
+					Projectile.NewProjectile(source, position, new Vector2(player.direction * 7f, 0), ModContent.ProjectileType<RubySwordProj>(), 0, knockback, player.whoAmI, 0f, hitCount);
 					Projectile.NewProjectile(source, position, velocity*2, ModContent.ProjectileType<Projectiles.RubyWave>(), dmg, knockback, player.whoAmI);
-					I--;
+					hitCount--;
 				}
             }
 			return false;
@@ -120,14 +120,16 @@ namespace GemSwords.Items
 			public float RotateValue { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
 			public override void AI()
 			{
-				Player player = Main.player[Projectile.owner];
+				int projectileFrame = (int)Projectile.ai[1];
+
+                Player player = Main.player[Projectile.owner];
 				player.heldProj = Projectile.whoAmI;
 				if (Main.myPlayer == Projectile.owner)
 					Projectile.netUpdate = true;
 				if (++Timer >= 25 / player.GetAttackSpeed(DamageClass.Melee))
 					Projectile.Kill();
-				if (Main.LocalPlayer.HeldItem.ModItem is RubySword rubySword)
-					Projectile.frame = rubySword.I;
+
+				Projectile.frame = projectileFrame;
 				float rotSpeed = 0.2f * player.GetAttackSpeed(DamageClass.Melee);
 				int rotMax = 35;
 

@@ -7,14 +7,7 @@ namespace GemSwords.Items
 {
 	public class EmeraldSword : ModItem
 	{
-#pragma warning disable CA2211 // Non-constant fields should not be visible
-		public static int Counter; // Using Counter to control
-#pragma warning restore CA2211 // Non-constant fields should not be visible
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Emerald Longsword");
-			// Tooltip.SetDefault("Imbued with the Dryad's powers\nHitting enemies marks them. Right click to make the enemy burst into thorns");
-		}
+		private static int Counter; // Using Counter to control
 		public override void SetDefaults()
 		{
 			Item.damage = 22;
@@ -75,7 +68,7 @@ namespace GemSwords.Items
 		}
 		public class Tracker : ModProjectile
 		{
-			public int AliveTime;
+			private int AliveTime;
 			public override void SetDefaults()
 			{
 				Projectile.hostile = false;
@@ -96,7 +89,7 @@ namespace GemSwords.Items
 
 				FadeInAndOut();
 
-				float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
+				float maxDetectRadius = 50f; // The maximum radius at which a projectile can detect a target
 				NPC closestNPC = FindClosestNPC(maxDetectRadius);
 				if (closestNPC == null) // If there's no closestNPC kill the Tracker
 				{
@@ -157,7 +150,7 @@ namespace GemSwords.Items
 					// 4. can take damage (e.g. moonlord core after all it's parts are downed)
 					// 5. hostile (!friendly)
 					// 6. not immortal (e.g. not a target dummy)
-					if (target.CanBeChasedBy())
+					if (target.active)
 					{
 						// The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
 						float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);

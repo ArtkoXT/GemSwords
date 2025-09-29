@@ -1,5 +1,3 @@
 *TO DO*
--Make Diamond Sword have a wider hit area on max charge
--Change Sapphire Sword sprite
--Fix Gold and Diamond swords charges only appearing clientside
--Give Gold Sword something special while it has no charges
+Update Amethyst Jewel sprite
+Update mod icon

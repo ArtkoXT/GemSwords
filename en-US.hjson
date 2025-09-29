@@ -3,58 +3,21 @@ Mods: {
 		Items: {
 			AmethystBlade: {
 				DisplayName: Amethyst Blade
-				Tooltip: Shoots sparks of fire
+				Tooltip: Every second swing shoots out a flame burst
 			}
 
-			AmethystJewel: {
-				DisplayName: Amethyst Jewel
-				Tooltip: A jewel imbued with dark and light souls. Can be used to improve a blade
-			}
-
-			CBGSword: {
-				DisplayName: Holy Gem Sword
-				Tooltip:
-					'''
-					Holding this weapon makes you glow and gives you protection
-					Shoots gem bolts
-					'''
-			}
-
-			DiamondSword: {
-				DisplayName: Diamond Greatsword
-				Tooltip:
-					'''
-					Hitting enemies stores shards in the sword that increase it's damage (Up to 3).
-					Right clicking releases stored shards into projectiles
-					Holding this sword makes you glow
-					'''
+			TopazBlade: {
+				DisplayName: Topaz Blade
+				Tooltip: Envelopes hit enemies in a toxic gas cloud
 			}
 
 			EmeraldSword: {
 				DisplayName: Emerald Longsword
 				Tooltip:
 					'''
-					Imbued with the Dryad's powers
-					Hitting enemies marks them. Right click to make the enemy burst into thorns
-					'''
-			}
-
-			GDBlade: {
-				DisplayName: Greater Diamond Blade
-				Tooltip: Shoots Diamond sword beams
-			}
-
-			GreaterAmethystBlade: {
-				DisplayName: Greater Amethyst Blade
-				Tooltip: Shoots sparks of fire
-			}
-
-			RubySword: {
-				DisplayName: Ruby Greatsword
-				Tooltip:
-					'''
-					Hits charge the sword (up to 2 charges)
-					Right click to release a charge giving you rapid regeneration for a short while and releasing a ruby slash
+					Gives Dryad's Blessing when held
+					Spawns a tracker on a hit enemy. Only 1 tracker may exist at a time
+					Right click to make them explode into a burst of thorns
 					'''
 			}
 
@@ -63,27 +26,59 @@ Mods: {
 				Tooltip:
 					'''
 					Inflicts frostburn on hit
-					Hitting an enemy 3 times drops an icicle on top of them
+					Every 3rd strike drops an icicle on top of hit enemy
 					'''
 			}
 
-			TopazBlade: {
-				DisplayName: Topaz Blade
-				Tooltip: Hits release a poison cloud that damages entities inside
+			RubySword: {
+				DisplayName: Ruby Greatsword
+				Tooltip:
+					'''
+					Hitting an enemy powers up the sword (up to twice)
+					When powered up the sword deals increased damage
+					Right clicking when powered up will release a ruby slash and grant a short burst of rapid regenration
+					'''
+			}
+
+			DiamondSword: {
+				DisplayName: Diamond Greatsword
+				Tooltip:
+					'''
+					Grants light when held
+					Every hit makes the sword grow a shard (up to 3)
+					Right click launches the shards into the air and homes in on the closest target
+					'''
+			}
+
+			GreaterAmethystBlade: {
+				DisplayName: Greater Amethyst Blade
+				Tooltip:
+					'''
+					Shoots fireballs when swung
+					Right click to enter flame mode
+					When flame mode is active damage, swing speed and size are increased
+					Consumes fuel while flame mode is active
+					Fuel slowly recharges passively
+					'''
+			}
+
+			AmethystJewel: {
+				DisplayName: Amethyst Jewel
+				Tooltip: A jewel imbued with dark and light souls. Can be used to improve a blade
 			}
 		}
 
 		Projectiles: {
-			DiamondSwordProj.DisplayName: Diamond Sword Proj
+			DiamondSwordProj.DisplayName: Diamond Sword Projectile
 			Tracker.DisplayName: Tracker
-			GreaterAmethystBladeProj.DisplayName: Greater Amethyst Blade Proj
-			RubySwordProj.DisplayName: Ruby Sword Proj
+			GreaterAmethystBladeProj.DisplayName: Greater Amethyst Blade Projectile
+			RubySwordProj.DisplayName: Ruby Sword Projectile
 			DiaShards.DisplayName: Diamond Shard
-			DMDProj.DisplayName: D M D Proj
 			FireBall.DisplayName: Fire Ball
 			FireSpark.DisplayName: Fire Spark
 			RubyWave.DisplayName: Ruby Wave
-			SapphireProj.DisplayName: Sapphire Proj
+			SapphireProj.DisplayName: Sapphire Projectile
+			DMDProj.DisplayName: D M D Proj
 		}
 	}
 }

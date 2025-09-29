@@ -7,12 +7,6 @@ namespace GemSwords.Items
 {
 	public class TopazBlade : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Topaz Blade");
-            // Tooltip.SetDefault("Hits release a poison cloud that damages entities inside");
-        }
-
         public override void SetDefaults()
 		{
 			Item.damage = 17;
