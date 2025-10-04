@@ -40,7 +40,7 @@ namespace GemSwords.Items
 		{
 			if (Counter > 0) // Makes it so you can only right click use if the counter is above 0
 				return true;
-			else return false;
+			return false;
 		}
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{

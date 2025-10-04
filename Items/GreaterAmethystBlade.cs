@@ -16,7 +16,7 @@ namespace GemSwords.Items
 		public int Fuel = 100;
 		public int FuelTick;
 		private bool FlameMode;
-		public static int UseTime = 27;
+		private static int UseTime = 27;
 		public override void SetDefaults()
 		{
 			Item.damage = 41;
@@ -36,9 +36,15 @@ namespace GemSwords.Items
 			Item.autoReuse = true;
 		}
 
-		public void setDamage(int dmg)
+		public void SetFlameModeStats()
 		{
-			Item.damage = dmg;
+            Item.damage = 55;
+			UseTime = 14;
+        }
+        public void SetDefaultStats()
+        {
+            Item.damage = 41;
+			UseTime = 27;
         }
 
         public override void AddRecipes()
@@ -51,14 +57,28 @@ namespace GemSwords.Items
 		}
 		public override bool AltFunctionUse(Player player)
 		{
-			// Enables Right Click function if Fuel is 100 or more and disables it if not
-			if (Fuel >= 100)
-				return true;
-
-			return false;
-		}
+			return Fuel >= 100;
+        }
         public override void HoldItem(Player player)
         {
+			if (Fuel < 100 && FlameMode == false)
+			{
+				if (++FuelTick >= 5)
+                {
+                    Fuel++;
+					FuelTick = 0;
+                }
+
+			}
+			if (FlameMode == true)
+			{
+				SetFlameModeStats();
+				if (++FuelTick >= 5)
+				{
+					Fuel--;
+					FuelTick = 0;
+				}
+			}
 			// Activates FlameMode by right clicking when Fuel is 100 or more
 			if (player.altFunctionUse == 2 && Fuel >= 100)
 			{
@@ -69,28 +89,8 @@ namespace GemSwords.Items
 			if (Fuel <= 0) 
 				FlameMode = false;
 
-			if (FlameMode == true)
-			{
-				setDamage(55); // Increases damage while FlameMode is active
-                UseTime = 14; // Increases use speed while FlameMode is active
-				if (FuelTick++ >= 5) // Decreases Fuel by 1 every 5 ticks while FlameMode is active
-				{
-					Fuel--;
-					FuelTick = 0;
-				}
-			}
-            else
-            {
-				setDamage(41); // Reverts Damage to default
-                UseTime = 27; // Reverts Use Speed to default
-				if (FuelTick++ >= 5) // Increases Fuel by 1 every 5 ticks if FlameMode is not active
-				{
-					Fuel++;
-					FuelTick = 0;
-				}
-			}
-			if (Fuel >= 100) // Caps Fuel to 100
-				Fuel = 100;
+			if (FlameMode == false)
+				SetDefaultStats();
 
 			Item.useTime = UseTime;
 			Item.useAnimation = UseTime;
@@ -98,7 +98,10 @@ namespace GemSwords.Items
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 			int flameModeValue = FlameMode == true ? 1 : 0; // Converts FlameMode bool to int for projectile spawn
-            Projectile.NewProjectile(source, position, new Vector2(0, 0), ModContent.ProjectileType<GreaterAmethystBladeProj>(), damage, knockback, player.whoAmI, 0f, flameModeValue, I); // Spawns Sword Projectile
+			if (FlameMode == false)
+				Projectile.NewProjectile(source, position, new Vector2(0, 0), ModContent.ProjectileType<GreaterAmethystBladeProj>(), damage, knockback, player.whoAmI, 0f, flameModeValue, I);
+			else
+				Projectile.NewProjectile(source, position, new Vector2(0, 0), ModContent.ProjectileType<GreaterAmethystBladeFieryMode>(), damage, knockback, player.whoAmI, 0f, flameModeValue, I); // Changes the projectile type based on FlameMode
 			if (player.altFunctionUse == 0 && ++I >= 2) // Spawns a Ball of Fire every 2nd swing
             {
 				Projectile.NewProjectile(source, position, velocity, ProjectileID.BallofFire, damage, knockback, player.whoAmI);
@@ -124,7 +127,8 @@ namespace GemSwords.Items
 				Projectile.usesLocalNPCImmunity = true;
 				Projectile.localNPCHitCooldown = -1;
 				Projectile.DamageType = DamageClass.Melee;
-				Projectile.width = 48;
+                Projectile.ownerHitCheck = true;
+                Projectile.width = 48;
 				Projectile.height = 48;
 				Projectile.aiStyle = -1;
 				Projectile.timeLeft = 27;
@@ -210,8 +214,8 @@ namespace GemSwords.Items
 				int Debuff = FieryMode == true ? BuffID.OnFire3 : BuffID.OnFire;
 				target.AddBuff(Debuff, 3 * 60); // Sets the hit enemy on fire for 3 seconds
 				// Adds 1 to fuel everytime you hit an npc
-				if (Main.LocalPlayer.HeldItem.ModItem is GreaterAmethystBlade greaterAmethystBlade)
-					greaterAmethystBlade.Fuel += 1;
+				if (Main.LocalPlayer.HeldItem.ModItem is GreaterAmethystBlade greaterAmethystBlade && greaterAmethystBlade.Fuel < 100)
+					greaterAmethystBlade.Fuel++;
 			}
 			public override bool PreDraw(ref Color lightColor)
 			{

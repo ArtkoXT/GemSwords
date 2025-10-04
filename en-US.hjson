@@ -58,13 +58,27 @@ Mods: {
 					Right click to enter flame mode
 					When flame mode is active damage, swing speed and size are increased
 					Consumes fuel while flame mode is active
-					Fuel slowly recharges passively
+					Fuel slowly recharges passively, but recovers faster when hitting enemies
 					'''
 			}
 
 			AmethystJewel: {
 				DisplayName: Amethyst Jewel
-				Tooltip: A jewel imbued with dark and light souls. Can be used to improve a blade
+				Tooltip:
+					'''
+					A jewel made of amethyst, imbued with dark and light souls 
+					Can be used to improve a blade
+					'''
+			}
+
+			AmberBlade: {
+				DisplayName: Amber Blade
+				Tooltip:
+					'''
+					When you kill an enemy, a charge is added to the blade (up to 5)
+					Right click to consume all charges and summon Amber Scorpions to fight for you
+					Scorpions deal damage and inflict acid venom on contact
+					'''
 			}
 		}
 
@@ -77,8 +91,10 @@ Mods: {
 			FireBall.DisplayName: Fire Ball
 			FireSpark.DisplayName: Fire Spark
 			RubyWave.DisplayName: Ruby Wave
-			SapphireProj.DisplayName: Sapphire Projectile
+			SapphireProj.DisplayName: Sapphire Sword Projectile
 			DMDProj.DisplayName: D M D Proj
+			GreaterAmethystBladeFieryMode.DisplayName: Greater Amethyst Blade Fiery Mode
+			AmberScorpion.DisplayName: Amber Scorpion
 		}
 	}
 }
